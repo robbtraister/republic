@@ -1,0 +1,18 @@
+{
+  "ignoreFiles": [
+    "/build/",
+    "/dist/",
+    "/mocks/",
+    "/node_modules/",
+    "/public/",
+    "**/*.(js|jsx|ts|tsx)"
+  ],
+  "extends": "stylelint-config-sass-guidelines",
+  "rules": {
+    "max-empty-lines": 1,
+    "max-nesting-depth": null,
+    "selector-no-qualifying-type": null,
+    "selector-max-compound-selectors": 5,
+    "string-quotes": "double"
+  }
+}

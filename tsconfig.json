@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2017"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "outDir": "./dist/",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "es6",
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "customMatcher": "\\.s?css$",
+          "classnameTransform": "dashes",
+          "rendererOptions": {
+            "sass": {
+              "includePaths": [
+                "./"
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  "include": [
+    "./mocks/",
+    "./src/",
+    "./src/**/*.json"
+  ],
+  "exclude": [
+    "./mocks/data/"
+  ]
+}

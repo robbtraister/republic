@@ -1,0 +1,24 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": false,
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "editor.formatOnSave": true,
+  "editor.rulers": [80],
+  "eslint.alwaysShowStatus": true,
+  "eslint.format.enable": true,
+  "eslint.packageManager": "yarn",
+  "eslint.workingDirectories": ["./"],
+  "javascript.format.enable": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.validate.enable": false,
+  "json.format.enable": true,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+  },
+  "typescript.format.enable": false,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.updateImportsOnFileMove.enabled": "always"
+}
