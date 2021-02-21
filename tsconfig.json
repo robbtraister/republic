@@ -16,12 +16,16 @@
       "DOM.Iterable",
       "ES2017"
     ],
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
     "outDir": "./dist/",
+    "paths": {
+      "src/*": ["./src/*"],
+      "ui/*": ["./src/ui/*"]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
@@ -37,7 +41,7 @@
           "rendererOptions": {
             "sass": {
               "includePaths": [
-                "./"
+                "./src/"
               ]
             }
           }
