@@ -2,7 +2,6 @@ import path from "path";
 import webpack from "webpack";
 
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import CopyWebpackPlugin from "copy-webpack-plugin";
 // import FaviconsWebpackPlugin from "favicons-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
@@ -17,7 +16,7 @@ import { name, version } from "./package.json";
 
 const PRODUCTION_PATTERN = /^prod/i;
 
-const buildVersion = process.env.BUILD_VERSION || `${version}-dev`;
+const buildVersion = process.env.BUILD_VERSION || version;
 
 class OnBuildPlugin {
   private fn: () => void;
@@ -84,18 +83,6 @@ export default function (_, argv: any = {}) {
       new OnBuildPlugin(() => {
         built = true;
       }),
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            from: "public",
-            to: ".",
-            filter: (resourcePath: string) =>
-              !resourcePath.startsWith(
-                path.resolve(__dirname, "public", "vendors")
-              ),
-          },
-        ],
-      }),
       new webpack.DefinePlugin({
         "process.env.BUILD_VERSION": JSON.stringify(buildVersion),
         "process.env.PATH_PREFIX": JSON.stringify(pathPrefix),
@@ -111,6 +98,15 @@ export default function (_, argv: any = {}) {
         scriptLoading: "defer",
         template: "./src/ui/index.html",
         title: "Application",
+        version: buildVersion,
+      }),
+      new HtmlWebpackPlugin({
+        filename: "404.html",
+        minify: false,
+        pathPrefix,
+        scriptLoading: "defer",
+        template: "./src/ui/redirect.html",
+        title: "Redirect",
         version: buildVersion,
       }),
       linting &&
@@ -135,7 +131,11 @@ export default function (_, argv: any = {}) {
       // because the `vendors.js` artifact is built separately, HtmlWebpackPlugin doesn't know about it
       // HtmlWebpackTagsPlugin manually injects a <script src="/vendors.js"> tag into the index.html artifact
       vendors &&
-        new HtmlWebpackTagsPlugin({ tags: ["vendors.js"], append: false }),
+        new HtmlWebpackTagsPlugin({
+          files: ["index.html"],
+          tags: ["vendors.js"],
+          append: false,
+        }),
       // this replaces imports of vendor libs with references to a static require function imported above
       // see ./webpack.vendors.js for configuration to build the vendors script
       vendors &&

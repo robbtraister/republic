@@ -6,15 +6,24 @@ import { App } from "./app";
 
 import "./styles.scss";
 
+const PATH_PREFIX = process.env.PATH_PREFIX;
+
 if (process.env.NODE_ENV === "development") {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { worker } = require("mocks/msw/worker");
   worker.start();
 }
 
+// if sent here from the 404 page, update the history URI
+const params = new URLSearchParams(window.location.search);
+const redirect = params.get("redirect");
+if (redirect) {
+  history.replaceState(null, "", redirect);
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter basename={process.env.PATH_PREFIX}>
+    <BrowserRouter basename={PATH_PREFIX}>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
