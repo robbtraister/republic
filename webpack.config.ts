@@ -47,6 +47,8 @@ export default function (_, argv: any = {}) {
   const https = argv.https !== false;
   const linting = argv.linting !== false;
 
+  const pathPrefix = argv.pathPrefix === false ? "" : `/${name}`;
+
   // dev should default to watch=true; prod should default to watch=false
   const watch = isProd ? Boolean(argv.watch) : argv.watch !== false;
   const vendors = !isProd && argv.vendors !== false;
@@ -76,7 +78,7 @@ export default function (_, argv: any = {}) {
     output: {
       filename: isProd ? "[name].[contenthash].js" : "[name].js",
       path: path.resolve(__dirname, "docs"),
-      publicPath: `/${name}/`,
+      publicPath: `${pathPrefix}/`,
     },
     plugins: [
       new OnBuildPlugin(() => {
@@ -87,16 +89,16 @@ export default function (_, argv: any = {}) {
           {
             from: "public",
             to: ".",
-            filter(resourcePath: string) {
-              return !resourcePath.startsWith(
+            filter: (resourcePath: string) =>
+              !resourcePath.startsWith(
                 path.resolve(__dirname, "public", "vendors")
-              );
-            },
+              ),
           },
         ],
       }),
       new webpack.DefinePlugin({
         "process.env.BUILD_VERSION": JSON.stringify(buildVersion),
+        "process.env.PATH_PREFIX": JSON.stringify(pathPrefix),
       }),
       // new FaviconsWebpackPlugin({
       //   logo: "./src/images/favicon.ico",
@@ -273,21 +275,23 @@ export default function (_, argv: any = {}) {
     },
     devServer: {
       compress: true,
-      contentBase: "./public/",
-      contentBasePublicPath: `/${name}/`,
+      contentBase: path.resolve(__dirname, "public"),
+      contentBasePublicPath: `${pathPrefix}/`,
       disableHostCheck: true,
-      historyApiFallback: true,
+      historyApiFallback: {
+        index: `${pathPrefix}/index.html`,
+      },
       host: "0.0.0.0",
       hot: hmr,
       https,
-      index: `index.html`,
       injectClient: liveReload,
       liveReload,
       open: argv.open !== false,
-      openPage: `http${https ? "s" : ""}://localhost:${port}/${name}`,
+      openPage: `http${https ? "s" : ""}://localhost:${port}${pathPrefix}`,
       port,
-      publicPath: `/${name}/`,
+      publicPath: `${pathPrefix}/`,
       transportMode: hmr ? "ws" : "sockjs",
+      watchContentBase: false,
       watchOptions: {
         poll: 1000,
         aggregateTimeout: 300,
@@ -300,7 +304,7 @@ export default function (_, argv: any = {}) {
           });
         }
 
-        app.use(async (req, res, next) => {
+        app.use(`${pathPrefix}/`, async (req, res, next) => {
           const { createApp } = await import("./mocks/express/app");
           createApp()(req, res, next);
         });
