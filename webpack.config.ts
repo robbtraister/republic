@@ -43,6 +43,7 @@ export default function (_, argv: any = {}) {
     PRODUCTION_PATTERN.test(argv.mode || "");
 
   const hmr = !isProd && Boolean(argv.hmr);
+  const https = argv.https !== false;
   const linting = argv.linting !== false;
 
   // dev should default to watch=true; prod should default to watch=false
@@ -263,12 +264,12 @@ export default function (_, argv: any = {}) {
       historyApiFallback: true,
       host: "0.0.0.0",
       hot: hmr,
-      https: true, // auth cookies are secure, so we need this to proxy to dev/stage
+      https,
       index: "",
       injectClient: liveReload,
       liveReload,
       open: argv.open !== false,
-      openPage: `https://localhost:${port}`,
+      openPage: `http${https ? "s" : ""}://localhost:${port}`,
       port,
       transportMode: hmr ? "ws" : "sockjs",
       watchOptions: {
@@ -284,7 +285,7 @@ export default function (_, argv: any = {}) {
         }
 
         app.use(async (req, res, next) => {
-          const { createApp } = await import("./src/mocks/express/app");
+          const { createApp } = await import("./mocks/express/app");
           createApp()(req, res, next);
         });
       },

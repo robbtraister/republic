@@ -7,7 +7,7 @@ import "./styles.scss";
 
 if (process.env.NODE_ENV === "development") {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { worker } = require("src/mocks/msw/worker");
+  const { worker } = require("mocks/msw/worker");
   worker.start();
 }
 
