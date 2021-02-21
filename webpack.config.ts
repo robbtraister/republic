@@ -13,7 +13,7 @@ import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import TerserJSPlugin from "terser-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 
-import { version } from "./package.json";
+import { name, version } from "./package.json";
 
 const PRODUCTION_PATTERN = /^prod/i;
 
@@ -76,7 +76,7 @@ export default function (_, argv: any = {}) {
     output: {
       filename: isProd ? "[name].[contenthash].js" : "[name].js",
       path: path.resolve(__dirname, "docs"),
-      publicPath: "/",
+      publicPath: `/${name}/`,
     },
     plugins: [
       new OnBuildPlugin(() => {
@@ -274,17 +274,19 @@ export default function (_, argv: any = {}) {
     devServer: {
       compress: true,
       contentBase: "./public/",
+      contentBasePublicPath: `/${name}/`,
       disableHostCheck: true,
       historyApiFallback: true,
       host: "0.0.0.0",
       hot: hmr,
       https,
-      index: "",
+      index: `index.html`,
       injectClient: liveReload,
       liveReload,
       open: argv.open !== false,
-      openPage: `http${https ? "s" : ""}://localhost:${port}`,
+      openPage: `http${https ? "s" : ""}://localhost:${port}/${name}`,
       port,
+      publicPath: `/${name}/`,
       transportMode: hmr ? "ws" : "sockjs",
       watchOptions: {
         poll: 1000,
