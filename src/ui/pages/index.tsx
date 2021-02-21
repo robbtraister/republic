@@ -1,17 +1,14 @@
-import debug from "debug";
-import { useEffect } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-const log = debug("app");
+import { Home } from "./home";
 
 export function Pages() {
-  useEffect(() => {
-    window
-      .fetch("/api/v1/posts")
-      .then((resp) => resp.json())
-      .then(log);
-  }, []);
-
-  return <div>Hello, world!</div>;
+  return (
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Redirect to="/" />
+    </Switch>
+  );
 }
 
 export default Pages;
