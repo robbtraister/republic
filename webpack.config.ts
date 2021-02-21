@@ -278,13 +278,15 @@ export default function (_, argv: any = {}) {
       },
       before(app) {
         if (argv.healthCheck !== false) {
-          app.get("/health-check", (req, res) => {
+          app.get("/health-check", (_req, res) => {
             res.send(`{"status":"${built ? "healthy" : "pending"}"}`);
           });
         }
 
-        // // eslint-disable-next-line @typescript-eslint/no-var-requires
-        // app.use(require("./mocks/app")(argv.fakes ? null : API_TARGET));
+        app.use(async (req, res, next) => {
+          const { createApp } = await import("./src/mocks/express/app");
+          createApp()(req, res, next);
+        });
       },
       // proxy: argv.fakes
       //   ? undefined

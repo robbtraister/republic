@@ -23,6 +23,7 @@
     "noImplicitAny": false,
     "outDir": "./dist/",
     "paths": {
+      "images/*": ["./src/images/*"],
       "src/*": ["./src/*"],
       "ui/*": ["./src/ui/*"]
     },
@@ -50,11 +51,7 @@
     ]
   },
   "include": [
-    "./mocks/",
     "./src/",
     "./src/**/*.json"
-  ],
-  "exclude": [
-    "./mocks/data/"
   ]
 }

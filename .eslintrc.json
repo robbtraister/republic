@@ -4,7 +4,13 @@
     "es6": true
   },
   "extends": ["prettier", "prettier/@typescript-eslint"],
-  "ignorePatterns": ["/dist/", "/mocks/data/", "/node_modules/", "/public/"],
+  "ignorePatterns": [
+    "/build/",
+    "/dist/",
+    "/node_modules/",
+    "/public/",
+    "/src/mocks/data/"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module"

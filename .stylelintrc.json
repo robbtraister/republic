@@ -2,9 +2,9 @@
   "ignoreFiles": [
     "/build/",
     "/dist/",
-    "/mocks/",
     "/node_modules/",
     "/public/",
+    "/src/mocks/",
     "**/*.(js|jsx|ts|tsx)"
   ],
   "extends": "stylelint-config-sass-guidelines",
