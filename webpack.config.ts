@@ -42,7 +42,7 @@ export default function (_, argv: any = {}) {
     PRODUCTION_PATTERN.test(process.env.NODE_ENV || "") ||
     PRODUCTION_PATTERN.test(argv.mode || "");
 
-  const hmr = !isProd && Boolean(argv.hmr);
+  const hmr = !isProd && argv.hmr !== false;
   const https = argv.https !== false;
   const linting = argv.linting !== false;
 
