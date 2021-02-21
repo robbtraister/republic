@@ -2,6 +2,7 @@ import path from "path";
 import webpack from "webpack";
 
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 // import FaviconsWebpackPlugin from "favicons-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
@@ -74,12 +75,25 @@ export default function (_, argv: any = {}) {
       : undefined,
     output: {
       filename: isProd ? "[name].[contenthash].js" : "[name].js",
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "docs"),
       publicPath: "/",
     },
     plugins: [
       new OnBuildPlugin(() => {
         built = true;
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: "public",
+            to: ".",
+            filter(resourcePath: string) {
+              return !resourcePath.startsWith(
+                path.resolve(__dirname, "public", "vendors")
+              );
+            },
+          },
+        ],
       }),
       new webpack.DefinePlugin({
         "process.env.BUILD_VERSION": JSON.stringify(buildVersion),

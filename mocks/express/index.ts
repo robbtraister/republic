@@ -76,14 +76,14 @@ function createServer(port = Number(process.env.PORT) || 8080) {
     res.send(`{"status":"healthy"}`);
   });
 
-  app.use(express.static(path.resolve(__dirname, "..", "..", "dist")));
+  app.use(express.static(path.resolve(__dirname, "..", "..", "docs")));
   app.use(express.static(path.resolve(__dirname, "..", "..", "public")));
 
   app.use(createApp());
 
   // serve the index page to any other request (to enable client-side routing)
   app.use((req, res) => {
-    res.sendFile(path.resolve(__dirname, "..", "..", "dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "..", "..", "docs", "index.html"));
   });
 
   const tokens = createCertificate();
