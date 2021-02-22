@@ -52,6 +52,6 @@
   "include": [
     "./mocks/",
     "./mocks/**/*.json",
-    "./src/",
+    "./src/"
   ]
 }
