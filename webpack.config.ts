@@ -163,7 +163,7 @@ export default function (_, argv: any = {}) {
             "react-dom": "preact/compat",
           }
         : undefined,
-      extensions: [".tsx", ".ts", ".js", ".mjs"],
+      extensions: [".tsx", ".ts", ".jsx", ".js", ".mjs"],
       plugins: [
         new TsconfigPathsPlugin({
           configFile: path.resolve(__dirname, "tsconfig.json"),

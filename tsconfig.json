@@ -53,6 +53,5 @@
     "./mocks/",
     "./mocks/**/*.json",
     "./src/",
-    "./src/**/*.json",
   ]
 }
