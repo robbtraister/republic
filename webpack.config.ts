@@ -45,12 +45,12 @@ export default function (_, argv: any = {}) {
   const hmr = !isProd && argv.hmr !== false;
   const https = argv.https !== false;
   const linting = argv.linting !== false;
-
   const pathPrefix = argv.pathPrefix === false ? "" : `/${name}`;
+  const preact = isProd && argv.preact !== false;
+  const vendors = !isProd && argv.vendors !== false;
 
   // dev should default to watch=true; prod should default to watch=false
   const watch = isProd ? Boolean(argv.watch) : argv.watch !== false;
-  const vendors = !isProd && argv.vendors !== false;
 
   const liveReload = watch && !hmr && Boolean(argv.liveReload);
 
@@ -157,6 +157,12 @@ export default function (_, argv: any = {}) {
         }),
     ].filter(Boolean),
     resolve: {
+      alias: preact
+        ? {
+            react: "preact/compat",
+            "react-dom": "preact/compat",
+          }
+        : undefined,
       extensions: [".tsx", ".ts", ".js", ".mjs"],
       plugins: [
         new TsconfigPathsPlugin({
