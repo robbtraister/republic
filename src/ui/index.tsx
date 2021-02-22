@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import { App } from "./app";
 
-import "./styles.scss";
+import "./index.scss";
 
 const PATH_PREFIX = process.env.PATH_PREFIX;
 
