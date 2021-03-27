@@ -254,7 +254,7 @@ export default function (_, argv: any = {}) {
         },
         {
           enforce: "pre",
-          test: /.[jt]sx?/,
+          test: /\.[jt]sx?$/,
           loader: "source-map-loader",
         },
         {
