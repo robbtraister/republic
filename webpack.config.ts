@@ -100,15 +100,16 @@ export default function (_, argv: any = {}) {
         title: "Application",
         version: buildVersion,
       }),
-      new HtmlWebpackPlugin({
-        filename: "404.html",
-        minify: false,
-        pathPrefix,
-        scriptLoading: "defer",
-        template: "./src/ui/redirect.html",
-        title: "Redirect",
-        version: buildVersion,
-      }),
+      isProd &&
+        new HtmlWebpackPlugin({
+          filename: "404.html",
+          minify: false,
+          pathPrefix,
+          scriptLoading: "defer",
+          template: "./src/ui/redirect.html",
+          title: "Redirect",
+          version: buildVersion,
+        }),
       linting &&
         new ForkTsCheckerWebpackPlugin({
           eslint: {
