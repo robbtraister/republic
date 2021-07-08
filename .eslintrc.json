@@ -5,6 +5,7 @@
   },
   "ignorePatterns": [
     "dist/**/*",
+    "docs/**/*",
     "mocks/data/**/*",
     "node_modules/**/*",
     "public/**/*",
