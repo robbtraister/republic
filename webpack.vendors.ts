@@ -2,14 +2,15 @@ import path from "path";
 import webpack from "webpack";
 import TerserJSPlugin from "terser-webpack-plugin";
 
-import getWebpackConfig from "./webpack.config";
+import webpackConfig from "./webpack.config";
 
-function getDependencies(rootDir) {
+function getDependencies(rootDir: string) {
   return (
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     Object.keys(require(path.join(rootDir, "package.json")).dependencies || {})
       // react-query/devtools are not exposed via the root import
       .concat("react-query/devtools")
+      .filter((dep) => !/^@citrine\//.test(dep))
       .filter((dep) => {
         // verify that an import exists for this module
         try {
@@ -24,11 +25,13 @@ function getDependencies(rootDir) {
   );
 }
 
-export default (env, argv) => {
+export default async (env: any, argv: any) => {
   argv.linting = false;
   argv.vendors = false;
 
-  const baseConfig = getWebpackConfig(env, argv);
+  const baseConfig = await webpackConfig(env, argv);
+
+  const hash = argv.hash || "[hash]";
 
   return {
     // use the same basic configuration as other builds (primarily module.rules)
@@ -49,10 +52,11 @@ export default (env, argv) => {
       ],
     },
     output: {
+      devtoolNamespace: "vendors",
       filename: "[name].js",
       path: path.resolve(__dirname, "public"),
       // expose the modules via a global require function called `vendors_abc123` (or whatever)
-      library: "[name]_[hash]",
+      library: `[name]_${hash}`,
     },
     performance: {
       maxAssetSize: 100 * 2 ** 20, // 100MB
@@ -62,7 +66,7 @@ export default (env, argv) => {
       // export a manifest file to be used by dev config
       new webpack.DllPlugin({
         path: path.join(__dirname, "public", "[name]-manifest.json"),
-        name: "[name]_[hash]",
+        name: `[name]_${hash}`,
       }),
     ],
     // don't use the TS resolve configuration
