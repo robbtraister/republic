@@ -4,17 +4,44 @@
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.rulers": [
     80
   ],
   "editor.tabSize": 2,
+  "emmet.includeLanguages": {
+    "javascript": "typescriptreact"
+  },
+  "eslint.alwaysShowStatus": true,
   "eslint.format.enable": true,
   "eslint.packageManager": "yarn",
   "eslint.workingDirectories": [
     "./"
   ],
+  "files.associations": {
+    "*.jenkinsfile": "groovy",
+    "Dockerfile.*": "dockerfile"
+  },
+  "files.exclude": {
+    "**/.eslintcache": true,
+    "**/.stylelintcache": true,
+    "**/.git/**": true,
+    "**/public/vendors*": true,
+    "**/report.html": true,
+    "**/stats.json": true
+  },
   "files.insertFinalNewline": true,
+  "files.watcherExclude": {
+    "**/.eslintcache": true,
+    "**/.stylelintcache": true,
+    "**/.git/**": true,
+    "**/dist/**": true,
+    "**/mocks/**/*.json": true,
+    "**/node_modules/**": true,
+    "**/public/vendors*": true,
+    "**/report.html": true,
+    "**/stats.json": true
+  },
   "javascript.format.enable": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "javascript.validate.enable": false,
@@ -27,8 +54,19 @@
     "editor.defaultFormatter": "vscode.json-language-features",
     "editor.formatOnSave": true
   },
+  "search.exclude": {
+    "**/.eslintcache": true,
+    "**/.stylelintcache": true,
+    "**/.git/**": true,
+    "**/dist/**": true,
+    "**/mocks/**/*.json": true,
+    "**/node_modules/**": true,
+    "**/public/vendors*": true,
+    "**/report.html": true,
+    "**/stats.json": true
+  },
   "typescript.format.enable": false,
   "typescript.preferences.importModuleSpecifier": "shortest",
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.updateImportsOnFileMove.enabled": "always"
+  "typescript.updateImportsOnFileMove.enabled": "always",
 }

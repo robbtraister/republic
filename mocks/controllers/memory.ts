@@ -3,7 +3,8 @@ import { ParsedQs } from "qs";
 import { Controller } from "./interface";
 
 export class MemoryController<Model extends { id: string } = { id: string }>
-  implements Controller<Model> {
+  implements Controller<Model>
+{
   constructor(private load: () => Promise<{ default: Model[] }>) {}
 
   getId(model: Model) {

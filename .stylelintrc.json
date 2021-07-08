@@ -1,20 +1,22 @@
 {
   "ignoreFiles": [
-    "/build/",
-    "/dist/",
-    "/node_modules/",
-    "/public/",
-    "/src/mocks/",
-    "**/*.(js|jsx|ts|tsx)"
+    "dist/**/*",
+    "mocks/**/*",
+    "node_modules/**/*",
+    "public/**/*"
   ],
   "extends": "stylelint-config-sass-guidelines",
   "rules": {
+    "scss/at-import-partial-extension-blacklist": null,
+    "declaration-no-important": true,
+    "declaration-property-value-disallowed-list": {
+      "/^border/": []
+    },
     "max-empty-lines": 1,
     "max-nesting-depth": null,
     "no-eol-whitespace": true,
-    "selector-no-qualifying-type": null,
     "selector-max-compound-selectors": 5,
-    "selector-max-id": 1,
+    "selector-no-qualifying-type": null,
     "string-quotes": "double"
   }
 }
