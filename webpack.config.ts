@@ -46,7 +46,7 @@ export default function (_, argv: any = {}) {
   const https = argv.https !== false;
   const linting = argv.linting !== false;
   const pathPrefix = argv.pathPrefix === false ? "" : `/${name}`;
-  const preact = isProd && argv.preact !== false;
+  const preact = false; // isProd && argv.preact !== false;
   const vendors = !isProd && argv.vendors !== false;
 
   // dev should default to watch=true; prod should default to watch=false
