@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`home page 1`] = `
-<div>
-  <div>
-    Hello, world!
-  </div>
-</div>
-`;

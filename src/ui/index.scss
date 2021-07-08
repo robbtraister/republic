@@ -10,4 +10,10 @@ body,
 :global(#root) {
   display: flex;
   flex: 1;
+  flex-direction: column;
+}
+
+:root {
+  --primary: #0097c4;
+  --secondary: #243a76;
 }

@@ -2,7 +2,7 @@ import path from "path";
 import webpack from "webpack";
 
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
-// import FaviconsWebpackPlugin from "favicons-webpack-plugin";
+import FaviconsWebpackPlugin from "favicons-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import HtmlWebpackTagsPlugin from "html-webpack-tags-plugin";
@@ -87,17 +87,17 @@ export default function (_, argv: any = {}) {
         "process.env.BUILD_VERSION": JSON.stringify(buildVersion),
         "process.env.PATH_PREFIX": JSON.stringify(pathPrefix),
       }),
-      // new FaviconsWebpackPlugin({
-      //   logo: "./src/images/favicon.ico",
-      //   favicons: {
-      //     appName: "Application",
-      //   },
-      // }),
+      new FaviconsWebpackPlugin({
+        logo: "./src/images/favicon.ico",
+        favicons: {
+          appName: "Application",
+        },
+      }),
       new HtmlWebpackPlugin({
         minify: isProd,
         scriptLoading: "defer",
         template: "./src/ui/index.html",
-        title: "Application",
+        title: "Re:Public Diabetes Tracker",
         version: buildVersion,
       }),
       isProd &&

@@ -1,0 +1,58 @@
+.info-card {
+  // background-color: #fff;
+  background-color: var(--primary);
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+  // box-shadow: 0 0 4px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  min-width: 240px;
+  padding: 12px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 1;
+
+  [role=rowheader] {
+    flex: 1;
+    font-size: 1.25em;
+    font-weight: 900;
+    // line-height: 1.5;
+    text-align: center;
+  }
+
+  [role=row] {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+
+    [role=cell] {
+      flex: 2;
+      text-align: center;
+
+      &.label {
+        flex: 1;
+        font-weight: 900;
+      }
+    }
+
+    [role=cell]:first-child {
+      text-align: left;
+    }
+
+    [role=cell]:last-child {
+      text-align: right;
+    }
+
+    &.rates {
+      padding-top: 0.5em;
+    }
+  }
+
+  .percentage {
+    font-size: 2em;
+    font-weight: bold;
+  }
+}
