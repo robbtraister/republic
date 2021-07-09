@@ -3,9 +3,9 @@
   "name": "Application",
   "description": "",
   "icons": {
-    "60": "/launchpad/assets/firefox_app_60x60.png",
-    "128": "/launchpad/assets/firefox_app_128x128.png",
-    "512": "/launchpad/assets/firefox_app_512x512.png"
+    "60": "/republic/assets/firefox_app_60x60.png",
+    "128": "/republic/assets/firefox_app_128x128.png",
+    "512": "/republic/assets/firefox_app_512x512.png"
   },
   "developer": {
     "name": null,
