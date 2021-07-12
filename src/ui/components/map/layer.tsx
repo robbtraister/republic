@@ -25,6 +25,8 @@ export function Layer<Properties>({
 
   useEffect(() => {
     if (map) {
+      const sourceId = (layer as any).source;
+
       let lastHoveredFeature: MapboxGeoJSONFeature | undefined;
       function updateHovered(newFeature?: MapboxGeoJSONFeature, pt?: Point) {
         if (newFeature?.id !== lastHoveredFeature?.id) {
@@ -54,37 +56,55 @@ export function Layer<Properties>({
         onClick?.(newFeature?.properties as Properties);
       }
 
-      map.on("load", function () {
-        map.addSource((layer as any).source, source);
-        map.addLayer(layer);
+      function init() {
+        if (!map?.getSource(sourceId)) {
+          map!.addSource(sourceId, source);
+        }
+        map!.addLayer(layer);
 
-        map.on("click", (e) => {
-          const features = map.queryRenderedFeatures(e.point, {
-            layers: ["diabetes-data"],
+        map!.on("click", (e) => {
+          const features = map!.queryRenderedFeatures(e.point, {
+            layers: [layer.id],
           });
           updateClicked(features?.[0]);
         });
 
-        map.on("mouseenter", "diabetes-data", () => {
-          map.getCanvas().style.cursor = "pointer";
+        map!.on("mouseenter", layer.id, () => {
+          map!.getCanvas().style.cursor = "pointer";
         });
 
-        map.on("mouseleave", "diabetes-data", () => {
-          map.getCanvas().style.removeProperty("cursor");
+        map!.on("mouseleave", layer.id, () => {
+          map!.getCanvas().style.removeProperty("cursor");
           updateHovered();
         });
 
-        map.on("mousemove", "diabetes-data", (e) => {
+        map!.on("mousemove", layer.id, (e) => {
           updateHovered(e.features?.[0], e.point);
         });
 
-        map.on("mousedown", "diabetes-data", () => {
+        map!.on("mousedown", layer.id, () => {
           onHover?.(undefined);
         });
-      });
+      }
+
+      if (map.loaded()) {
+        init();
+      } else {
+        map.on("load", init);
+      }
 
       return () => {
-        map.removeLayer(layer.id);
+        try {
+          map.removeLayer(layer.id);
+          if (lastClickedFeature) {
+            map!.setFeatureState(lastClickedFeature, { clicked: false });
+          }
+          if (lastHoveredFeature) {
+            map!.setFeatureState(lastHoveredFeature, { hovered: false });
+          }
+        } catch (e) {
+          // do nothing
+        }
       };
     }
   }, [map, layer, source, onClick, onHover]);
