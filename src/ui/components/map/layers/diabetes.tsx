@@ -39,19 +39,16 @@ export const layer: AnyLayer = {
       // else if hovered, use this opacity
       ["boolean", ["feature-state", "hovered"], false],
       0.5,
-      // else linearly interpolate the Percentage value (doubled) as opacity
+      // else linearly interpolate the Percentage value as opacity
       [
-        "*",
+        "interpolate",
+        ["linear"],
+        ["to-number", ["get", "Percentage"]],
+        0,
+        0,
+        100,
+        // double Percentage value for opacity, as the values are low
         2,
-        [
-          "interpolate",
-          ["linear"],
-          ["to-number", ["get", "Percentage"]],
-          0,
-          0,
-          100,
-          1,
-        ],
       ],
     ],
   },
