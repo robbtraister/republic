@@ -18,3 +18,12 @@
   letter-spacing: -2px;
   line-height: 2;
 }
+
+.toggle {
+  bottom: 8px;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 8px;
+  z-index: 3;
+}
